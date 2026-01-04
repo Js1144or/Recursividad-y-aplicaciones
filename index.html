@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recursividad - Investigación (HTML/CSS/JS)</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#60a5fa}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#071024 0%, #071733 100%);color:#e6eef8}
+    header{padding:36px 24px;text-align:center}
+    header h1{margin:0;font-size:2rem}
+    header p{color:var(--muted);margin-top:8px}
+    .container{max-width:1100px;margin:24px auto;padding:16px}
+    nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+    nav a{padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:10px;color:var(--muted);text-decoration:none}
+    section.card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;margin-bottom:18px}
+    h2{color:#cfe8ff}
+    .flex{display:flex;gap:16px}
+    .col{flex:1}
+    pre.code{background:#021226;padding:12px;border-radius:8px;overflow:auto;color:#cfe8ff}
+    canvas{width:100%;height:320px;border-radius:8px;background:#021226;display:block}
+    footer{font-size:0.9rem;color:var(--muted);text-align:center;padding:18px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    button{background:var(--accent);border:none;padding:8px 10px;border-radius:8px;color:#012;cursor:pointer}
+    img.diagram{max-width:100%;border-radius:8px}
+    ul{line-height:1.5}
+    @media (max-width:800px){.flex{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Recursividad en Ciencias de la Computación</h1>
+    <p>Definición, propiedades, complejidad y ejemplos visuales: factorial, Fibonacci, Torres de Hanói y fractales.</p>
+  </header>
+  <main class="container">
+    <nav>
+      <a href="#intro">Introducción</a>
+      <a href="#def">Definición</a>
+      <a href="#props">Características</a>
+      <a href="#comp">Complejidad</a>
+      <a href="#algos">Algoritmos</a>
+      <a href="#conclu">Conclusión</a>
+      <a href="#refs">Referencias</a>
+    </nav>
+
+    <section id="intro" class="card">
+      <h2>Portada / Introducción</h2>
+      <p>Esta página compila una investigación breve sobre recursividad: su definición, procedimientos recursivos y aplicaciones, características, análisis de complejidad y ejemplos visuales y programáticos en HTML/CSS/JS que pueden subirse a un repositorio en GitHub.</p>
+    </section>
+
+    <section id="def" class="card">
+      <h2>Definición de recursividad</h2>
+      <p>En ciencias de la computación, la recursividad es un método para resolver un problema donde la solución depende de soluciones a instancias más pequeñas del mismo problema. Una función se considera recursiva si se llama a sí misma directa o indirectamente y tiene al menos un caso base que detiene la recursión.</p>
+      <p>Aplicaciones comunes: algoritmos en estructuras de datos recursivas (árboles, listas), algoritmos divide y vencerás (merge sort, quicksort), construcción de fractales, y resolución de puzzles como Torres de Hanói.</p>
+    </section>
+
+    <section id="props" class="card">
+      <h2>Procedimientos recursivos y características</h2>
+      <ul>
+        <li><strong>Caso base:</strong> condición que evita la recursividad infinita.</li>
+        <li><strong>Paso recursivo:</strong> reducción de la instancia a un subproblema más pequeño.</li>
+        <li><strong>Pila de llamadas:</strong> cada llamada crea un marco en la pila con sus parámetros y variables locales.</li>
+        <li><strong>Tail recursion:</strong> recursión en la que la llamada recursiva es la última operación; puede optimizarse a iteración por el compilador/interprete.</li>
+        <li><strong>Aplicaciones:</strong> búsqueda (binary search), recorrido de árboles (DFS), generación de fractales, programación dinámica (memoización de recursiones costosas).</li>
+      </ul>
+    </section>
+
+    <section id="comp" class="card">
+      <h2>Complejidad computacional en algoritmos recursivos</h2>
+      <p>El análisis de la complejidad de algoritmos recursivos se realiza mediante <em>recurrencias</em> (relaciones del tipo T(n)). Herramientas como el <strong>Teorema maestro (Master Theorem)</strong> permiten resolver muchas recurrencias comunes para obtener la cota asintótica (O, Θ).</p>
+      <p>Ejemplos rápidos:</p>
+      <ul>
+        <li>Factorial: T(n)=T(n-1)+O(1) → O(n)</li>
+        <li>Fibonacci (naïve): T(n)=T(n-1)+T(n-2)+O(1) → O(φ^n) (exponencial)</li>
+        <li>Divide y vencerás típico: T(n)=a T(n/b) + f(n) → aplicar Teorema maestro.</li>
+      </ul>
+    </section>
+
+    <section id="algos" class="card">
+      <h2>Ejemplos visuales de algoritmos</h2>
+      <div class="flex">
+        <div class="col">
+          <h3>Factorial</h3>
+          <p>Explicación: n! = n × (n-1)!, con base 0! = 1. La recursión acumula multiplicaciones al volver de la pila.</p>
+          <canvas id="canvas-factorial"></canvas>
+          <div class="controls">
+            <label>n: <input id="fact-n" type="range" min="0" max="12" value="6"></label>
+            <button id="run-fact">Mostrar árbol</button>
+          </div>
+        </div>
+
+        <div class="col">
+          <h3>Fibonacci</h3>
+          <p>Explicación: F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2). Versión naïve muestra repetición de subproblemas; útil para introducir memoización.</p>
+          <canvas id="canvas-fib"></canvas>
+          <div class="controls">
+            <label>n: <input id="fib-n" type="range" min="0" max="12" value="8"></label>
+            <button id="run-fib">Mostrar árbol</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:18px"></div>
+      <div class="flex">
+        <div class="col">
+          <h3>Torres de Hanói</h3>
+          <p>Reglas: mover un disco a la vez, no poner disco mayor sobre menor. Mínima cantidad de movimientos: 2^n - 1.</p>
+          <canvas id="canvas-hanoi" style="height:240px"></canvas>
+          <div class="controls">
+            <label>discos: <input id="hanoi-n" type="range" min="1" max="8" value="4"></label>
+            <button id="start-hanoi">Iniciar animación</button>
+            <button id="reset-hanoi">Reset</button>
+          </div>
+        </div>
+
+        <div class="col">
+          <h3>Fractales (Triángulo de Sierpinski)</h3>
+          <p>Fractales exhiben autosemejanza: una estructura que se repite a distintas escalas. El triángulo de Sierpinski se puede construir recursivamente subdividiendo triángulos.</p>
+          <canvas id="canvas-fractal" style="height:240px"></canvas>
+          <div class="controls">
+            <label>iteraciones: <input id="fractal-depth" type="range" min="0" max="8" value="5"></label>
+            <button id="draw-fractal">Dibujar</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="conclu" class="card">
+      <h2>Conclusión</h2>
+      <p>La recursividad es una herramienta conceptual poderosa en ciencias de la computación; permite modelar problemas naturales con definiciones inductivas, simplificar algoritmos sobre estructuras recursivas y, combinado con técnicas como memoización y transformaciones iterativas, lograr soluciones eficientes.</p>
+    </section>
+
+    <section id="refs" class="card">
+      <h2>Referencias (IEEE)</h2>
+      <ol>
+        <li>M. A. Wirth, "The far side of recursion," <em>Teaching Mathematics and Computer Science</em>, vol. 13, pp. 57-71, May 2015. (PDF)</li>
+        <li>Recursion (computer science), Wikipedia, 2025. [Online]. Available: https://en.wikipedia.org/wiki/Recursion_(computer_science)</li>
+        <li>MIT 6.005 Reading: "Recursion". Massachusetts Institute of Technology. [Online]. Available: https://web.mit.edu/6.005/www/fa15/classes/10-recursion/
+        </li>
+        <li>"Program for Tower of Hanoi Algorithm," GeeksforGeeks, 2025. [Online]. Available: https://www.geeksforgeeks.org/dsa/c-program-for-tower-of-hanoi/
+        </li>
+        <li>"Fractal," Encyclopedia Britannica. [Online]. Available: https://www.britannica.com/science/fractal
+        </li>
+        <li>Master theorem (analysis of algorithms), Wikipedia. [Online]. Available: https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)
+        </li>
+      </ol>
+
+      <h3>Fuentes consultadas (formato libre)</h3>
+      <p>Wikipedia, MIT course notes, GeeksforGeeks, Britannica, artículo académico de Wirth.</p>
+    </section>
+
+    <footer>
+      <p>Proyecto listo para GitHub. Puedes copiar este archivo como <code>index.html</code> y agregar un README con instrucciones de instalación (no requiere servidor: abrir localmente en navegador basta).</p>
+    </footer>
+  </main>
+
+  <script>
+    /* Utilidades para dibujar árboles y animaciones. Código simplificado y comentado. */
+    function clearCanvas(c){const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='#021226';ctx.fillRect(0,0,c.width,c.height)}
+
+    // Ajuste de DPI para canvas responsive
+    function resizeCanvas(c){const dpr=window.devicePixelRatio||1; c.width=c.clientWidth*dpr; c.height=c.clientHeight*dpr; const ctx=c.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0)}
+
+    // ---------- FACTORIAL: mostrar pila de llamadas (texto y líneas)
+    const cFact=document.getElementById('canvas-factorial'); resizeCanvas(cFact); window.addEventListener('resize',()=>resizeCanvas(cFact));
+    function drawFactorialTree(n){resizeCanvas(cFact); const ctx=cFact.getContext('2d'); clearCanvas(cFact); ctx.fillStyle='#cfe8ff'; ctx.font='14px monospace';
+      const baseY=20; const gap=24; let level=0; function recurse(k,x){ctx.fillText('fact('+k+')',20,baseY + level*gap + x*12); if(k<=1) return; level++; recurse(k-1,x+1); level--;}
+      recurse(n,0);
+      // Resultado calculado iterativamente para mostrar valor
+      function fact(m){return m<=1?1:m*fact(m-1)}
+      ctx.fillStyle='#94a3b8'; ctx.fillText('Resultado: '+(function f(m){return m<=1?1:m*f(m-1)})(n),300,40);
+    }
+    document.getElementById('run-fact').onclick=()=>{drawFactorialTree(Number(document.getElementById('fact-n').value))}; drawFactorialTree(6);
+
+    // ---------- FIBONACCI: dibujar árbol recursivo (limitar nodos para claridad)
+    const cFib=document.getElementById('canvas-fib'); resizeCanvas(cFib);
+    function drawFibTree(n){resizeCanvas(cFib); const ctx=cFib.getContext('2d'); clearCanvas(cFib); ctx.strokeStyle='#60a5fa'; ctx.fillStyle='#cfe8ff'; ctx.font='12px monospace';
+      let xStart= cFib.clientWidth/2; let yStart=20; let maxDepth=8; let spacing=80; let nodes=0;
+      function recurse(val,x,y,depth){nodes++; if(nodes>200) return; ctx.beginPath(); ctx.fillText('F('+val+')',x-12,y);
+        if(val<=1) return; let dx=spacing/(depth+1); ctx.moveTo(x,y+6);
+        ctx.lineTo(x-dx,y+40); ctx.moveTo(x,y+6); ctx.lineTo(x+dx,y+40); ctx.stroke(); recurse(val-1,x-dx,y+40,depth+1); recurse(val-2,x+dx,y+40,depth+1);
+      }
+      recurse(n,xStart,yStart,0);
+    }
+    document.getElementById('run-fib').onclick=()=>{drawFibTree(Number(document.getElementById('fib-n').value))}; drawFibTree(8);
+
+    // ---------- TORRES DE HANOI: animación simple
+    const cH=document.getElementById('canvas-hanoi'); resizeCanvas(cH);
+    function hanoiMoves(n,from,aux,to,arr){ if(n==0) return; hanoiMoves(n-1,from,to,aux,arr); arr.push([from,to]); hanoiMoves(n-1,aux,from,to,arr); }
+    function drawHanoi(n,moves,step){resizeCanvas(cH); const ctx=cH.getContext('2d'); clearCanvas(cH); const w=cH.clientWidth; const h=cH.clientHeight; const pegX=[w*0.2,w*0.5,w*0.8]; const baseY=h-20;
+      // build towers
+      const towers=[[],[],[]]; for(let i=n;i>=1;i--) towers[0].push(i);
+      for(let i=0;i<Math.min(step,moves.length);i++){ const mv=moves[i]; const d=towers[mv[0]-1].pop(); towers[mv[1]-1].push(d);} 
+      // draw pegs
+      ctx.fillStyle='#94a3b8'; for(let i=0;i<3;i++){ctx.fillRect(pegX[i]-4,baseY-140,8,140)}
+      // draw disks
+      for(let i=0;i<3;i++){ for(let j=0;j<towers[i].length;j++){ const disk=towers[i][j]; const diskW=40+disk*18; const x=pegX[i]-diskW/2; const y=baseY- (j+1)*22; ctx.fillStyle=['#60a5fa','#7dd3fc','#a78bfa','#fca5a5','#fde68a','#86efac','#f0abfc','#c4b5fd'][(disk-1)%8]; ctx.fillRect(x,y,diskW,18); ctx.strokeRect(x,y,diskW,18);} }
+    }
+    let hMoves=[], hInterval=null, hStep=0;
+    document.getElementById('start-hanoi').onclick=()=>{ const n=Number(document.getElementById('hanoi-n').value); hMoves=[]; hanoiMoves(n,1,2,3,hMoves); hStep=0; if(hInterval) clearInterval(hInterval); hInterval=setInterval(()=>{ drawHanoi(n,hMoves,hStep); hStep++; if(hStep>hMoves.length){ clearInterval(hInterval);} },400); }
+    document.getElementById('reset-hanoi').onclick=()=>{ if(hInterval) clearInterval(hInterval); drawHanoi(Number(document.getElementById('hanoi-n').value),[],0); }
+    drawHanoi(4,[],0);
+
+    // ---------- FRACTAL: Triángulo de Sierpinski
+    const cFr=document.getElementById('canvas-fractal'); resizeCanvas(cFr);
+    function drawTriangle(ctx, p1,p2,p3){ ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.lineTo(p3.x,p3.y); ctx.closePath(); ctx.fill(); }
+    function sierpinski(ctx,p1,p2,p3,depth){ if(depth==0){ drawTriangle(ctx,p1,p2,p3); return;} const mid=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2}); const a=mid(p1,p2), b=mid(p2,p3), c=mid(p3,p1); sierpinski(ctx,p1,a,c,depth-1); sierpinski(ctx,a,p2,b,depth-1); sierpinski(ctx,c,b,p3,depth-1); }
+    function renderFractal(depth){ resizeCanvas(cFr); const ctx=cFr.getContext('2d'); clearCanvas(cFr); ctx.fillStyle='#60a5fa'; const w=cFr.clientWidth, h=cFr.clientHeight; const p1={x:w/2,y:20}, p2={x:20,y:h-20}, p3={x:w-20,y:h-20}; sierpinski(ctx,p1,p2,p3,depth); }
+    document.getElementById('draw-fractal').onclick=()=>{ renderFractal(Number(document.getElementById('fractal-depth').value)); }
+    renderFractal(5);
+
+  </script>
+</body>
+</html>
